@@ -1,0 +1,21 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "images"
+
+collections:
+  - name: "parametres"
+    label: "Mon Site"
+    files:
+      - name: "accueil"
+        label: "Page d'accueil"
+        file: "data/accueil.json"
+        fields:
+          - { label: "Slogan", name: "slogan", widget: "string" }
+          - { label: "Sous-titre", name: "sous_titre", widget: "string" }
+          - { label: "Texte À propos", name: "apropos", widget: "text" }
+          - { label: "Stat 1 — Nombre", name: "stat1_nb", widget: "string" }
+          - { label: "Stat 1 — Label", name: "stat1_label", widget: "string" }
+          - { label: "Stat 2 — Nombre", name: "stat2_nb", widget: "string" }
+          - { label: "Stat 2 — Label", name: "stat2_label", widget: "string" }

@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KG Prestige — Where Excellence Meets Prestige</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Cinzel:wght@400;500;600&family=Montserrat:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+
+:root {
+  --brun: #1a0e07;
+  --brun2: #2c1a0e;
+  --brun3: #3d2415;
+  --or: #c9956a;
+  --or2: #e8c99a;
+  --or3: #f5e6d0;
+  --or-bright: #d4a96a;
+  --creme: #fdf6ed;
+  --noir: #0a0603;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--noir);
+  color: var(--or3);
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+#cursor {
+  position: fixed;
+  width: 8px; height: 8px;
+  background: var(--or);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transition: transform 0.1s;
+  mix-blend-mode: screen;
+}
+#cursor-ring {
+  position: fixed;
+  width: 32px; height: 32px;
+  border: 1px solid rgba(201,149,106,0.5);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transition: all 0.25s ease;
+  transform: translate(-50%, -50%);
+}
+
+nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 28px 60px;
+  background: linear-gradient(to bottom, rgba(10,6,3,0.95) 0%, transparent 100%);
+  transition: all 0.6s ease;
+}
+nav.scrolled {
+  padding: 18px 60px;
+  background: rgba(10,6,3,0.97);
+  border-bottom: 1px solid rgba(201,149,106,0.15);
+}
+.nav-logo {
+  font-family: 'Cinzel', serif;
+  font-size: 13px;
+  letter-spacing: 0.35em;
+  color: var(--or2);
+  text-transform: uppercase;
+}
+.nav-links { display: flex; gap: 48px; }
+.nav-links a {
+  font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase;
+  color: rgba(232,201,154,0.6); text-decoration: none;
+  transition: color 0.4s; position: relative;
+}
+.nav-links a::after {
+  content: ''; position: absolute; bottom: -3px; left: 0;
+  width: 0; height: 1px; background: var(--or);
+  transition: width 0.4s ease;
+}
+.nav-links a:hover { color: var(--or2); }
+.nav-links a:hover::after { width: 100%; }
+
+#hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  position: relative; overflow: hidden;
+  background: var(--noir);
+}
+
+.hero-bg {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 50% 40%, #2c1a0e 0%, #1a0e07 40%, #080402 100%);
+}
+
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: float linear infinite;
+  opacity: 0;
+}
+@keyframes float {
+  0% { transform: translateY(100vh) translateX(0); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 0.6; }
+  100% { transform: translateY(-10vh) translateX(20px); opacity: 0; }
+}
+
+.hero-lines {
+  position: absolute; inset: 0;
+  background-image: repeating-linear-gradient(
+    0deg, transparent, transparent 80px,
+    rgba(201,149,106,0.03) 80px, rgba(201,149,106,0.03) 81px
+  );
+}
+
+.hero-content {
+  position: relative; z-index: 2;
+  text-align: center; padding: 0 20px;
+}
+
+.hero-eyebrow {
+  font-size: 9px; letter-spacing: 0.5em; text-transform: uppercase;
+  color: var(--or); margin-bottom: 40px;
+  opacity: 0; animation: fadeUp 1.2s ease 0.3s forwards;
+}
+
+.hero-logo-wrap {
+  position: relative; margin-bottom: 48px;
+  opacity: 0; animation: fadeUp 1.4s ease 0.5s forwards;
+}
+
+.logo-ring {
+  position: absolute; inset: -30px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(201,149,106,0.08) 0%, transparent 70%);
+  animation: pulse-ring 4s ease-in-out infinite;
+}
+@keyframes pulse-ring {
+  0%, 100% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.15); opacity: 1; }
+}
+
+.hero-monogram {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(90px, 18vw, 180px);
+  font-weight: 400;
+  line-height: 1;
+  background: linear-gradient(135deg, #8a5c35 0%, #c9956a 25%, #e8c99a 50%, #d4a96a 75%, #9a6b3e 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 40px rgba(201,149,106,0.3));
+  position: relative;
+}
+
+.hero-brand {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(14px, 2.5vw, 22px);
+  letter-spacing: 0.6em;
+  color: var(--or2);
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  opacity: 0; animation: fadeUp 1.4s ease 0.8s forwards;
+}
+
+.hero-tagline {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: clamp(16px, 2.8vw, 28px);
+  color: rgba(245,230,208,0.7);
+  letter-spacing: 0.05em;
+  margin-bottom: 64px;
+  opacity: 0; animation: fadeUp 1.4s ease 1s forwards;
+}
+
+.hero-cta {
+  display: inline-flex; align-items: center; gap: 16px;
+  padding: 16px 44px;
+  border: 1px solid rgba(201,149,106,0.5);
+  font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--or2); text-decoration: none;
+  position: relative; overflow: hidden;
+  transition: all 0.5s ease; cursor: none;
+  opacity: 0; animation: fadeUp 1.4s ease 1.2s forwards;
+}
+.hero-cta::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(201,149,106,0.15), transparent);
+  transform: translateX(-100%);
+  transition: transform 0.6s ease;
+}
+.hero-cta:hover::before { transform: translateX(100%); }
+.hero-cta:hover { border-color: var(--or); color: var(--or3); }
+
+.scroll-indicator {
+  position: absolute; bottom: 40px; left: 50%;
+  transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  opacity: 0; animation: fadeIn 2s ease 2s forwards;
+}
+.scroll-line {
+  width: 1px; height: 60px;
+  background: linear-gradient(to bottom, transparent, var(--or), transparent);
+  animation: scrollAnim 2s ease-in-out infinite;
+}
+@keyframes scrollAnim {
+  0% { transform: scaleY(0); transform-origin: top; }
+  50% { transform: scaleY(1); transform-origin: top; }
+  51% { transform: scaleY(1); transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
+}
+.scroll-text {
+  font-size: 8px; letter-spacing: 0.35em; color: rgba(201,149,106,0.5);
+  text-transform: uppercase;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn { to { opacity: 1; } }
+
+.section-divider {
+  display: flex; align-items: center; justify-content: center;
+  gap: 24px; padding: 0 60px; margin: 0;
+}
+.div-line { flex: 1; height: 1px; background: linear-gradient(90deg, transparent, rgba(201,149,106,0.3), transparent); }
+.div-diamond {
+  width: 6px; height: 6px;
+  border: 1px solid var(--or);
+  transform: rotate(45deg); flex-shrink: 0;
+}
+
+section { padding: 100px 60px; position: relative; }
+
+.section-label {
+  font-size: 9px; letter-spacing: 0.5em; text-transform: uppercase;
+  color: var(--or); margin-bottom: 16px;
+  display: flex; align-items: center; gap: 16px;
+}
+.section-label::before { content: ''; width: 30px; height: 1px; background: var(--or); }
+
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(32px, 5vw, 56px);
+  font-weight: 300; color: var(--or2);
+  line-height: 1.2; margin-bottom: 24px;
+}
+.section-title em { font-style: italic; color: var(--or3); }
+
+#about {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+  align-items: center;
+  background: linear-gradient(135deg, #0d0704 0%, #1a0e07 100%);
+}
+.about-text p {
+  font-size: 14px; line-height: 2; color: rgba(245,230,208,0.6);
+  margin-bottom: 20px;
+}
+.about-stats {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+  background: rgba(201,149,106,0.1);
+  border: 1px solid rgba(201,149,106,0.1);
+}
+.stat-item { padding: 40px 32px; background: var(--noir); text-align: center; }
+.stat-number {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 52px; font-weight: 300;
+  background: linear-gradient(135deg, var(--or), var(--or2));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text; line-height: 1;
+}
+.stat-label {
+  font-size: 9px; letter-spacing: 0.25em; color: rgba(201,149,106,0.5);
+  text-transform: uppercase; margin-top: 8px;
+}
+
+#services { background: var(--noir); text-align: center; }
+.services-grid {
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px;
+  margin-top: 60px;
+  background: rgba(201,149,106,0.08);
+  border: 1px solid rgba(201,149,106,0.08);
+}
+.service-card {
+  background: #0a0603; padding: 48px 24px;
+  position: relative; overflow: hidden;
+  transition: all 0.5s ease;
+}
+.service-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--or), transparent);
+  transform: scaleX(0); transition: transform 0.5s ease;
+}
+.service-card:hover::before { transform: scaleX(1); }
+.service-card:hover { background: #130b05; }
+.service-card:hover .service-icon { color: var(--or2); transform: scale(1.1); }
+.service-icon {
+  font-size: 28px; margin-bottom: 24px;
+  transition: all 0.4s ease; display: block;
+}
+.service-name {
+  font-family: 'Cinzel', serif;
+  font-size: 11px; letter-spacing: 0.2em;
+  color: var(--or2); text-transform: uppercase; margin-bottom: 16px;
+}
+.service-desc { font-size: 11px; line-height: 1.8; color: rgba(245,230,208,0.4); }
+
+#gallery { background: linear-gradient(135deg, #0d0704, #1a0e07); }
+.gallery-track {
+  display: flex; gap: 24px; margin-top: 48px;
+  overflow-x: auto; scroll-behavior: smooth;
+  -ms-overflow-style: none; scrollbar-width: none;
+  cursor: grab;
+}
+.gallery-track::-webkit-scrollbar { display: none; }
+.gallery-item {
+  flex: 0 0 300px; height: 400px;
+  position: relative; overflow: hidden;
+  border: 1px solid rgba(201,149,106,0.1);
+}
+.gallery-img {
+  width: 100%; height: 100%;
+  display: flex; align-items: center; justify-content: center;
+  transition: transform 0.8s ease; position: relative;
+}
+.gallery-item:hover .gallery-img { transform: scale(1.05); }
+.gallery-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(10,6,3,0.9) 0%, transparent 50%);
+  display: flex; flex-direction: column;
+  justify-content: flex-end; padding: 24px;
+}
+.gallery-title { font-family: 'Cormorant Garamond', serif; font-size: 18px; color: var(--or2); margin-bottom: 4px; }
+.gallery-sub { font-size: 9px; letter-spacing: 0.3em; color: var(--or); text-transform: uppercase; }
+.g1 { background: linear-gradient(135deg, #2c1a0e, #1a0e07); }
+.g2 { background: linear-gradient(135deg, #1a0e07, #0d0704); }
+.g3 { background: linear-gradient(135deg, #3d2415, #2c1a0e); }
+.g4 { background: linear-gradient(135deg, #0d0704, #1a0e07); }
+.g5 { background: linear-gradient(135deg, #2c1a0e, #3d2415); }
+.g-icon { font-size: 64px; opacity: 0.2; }
+
+#testimonials { background: var(--noir); text-align: center; }
+.testimonials-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 60px;
+}
+.testi-card {
+  border: 1px solid rgba(201,149,106,0.12); padding: 48px 36px;
+  position: relative; background: #080503; transition: border-color 0.4s;
+}
+.testi-card:hover { border-color: rgba(201,149,106,0.3); }
+.testi-quote {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 64px; line-height: 0.5;
+  color: var(--or); margin-bottom: 24px; display: block; opacity: 0.4;
+}
+.testi-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic; font-size: 17px;
+  color: rgba(245,230,208,0.7); line-height: 1.7; margin-bottom: 32px;
+}
+.testi-author { font-size: 10px; letter-spacing: 0.25em; color: var(--or); text-transform: uppercase; }
+.testi-role { font-size: 10px; color: rgba(201,149,106,0.4); margin-top: 4px; }
+.stars { color: var(--or); font-size: 11px; margin-bottom: 20px; letter-spacing: 4px; }
+
+#cta-final {
+  background: linear-gradient(135deg, #1a0e07 0%, #0a0603 50%, #1a0e07 100%);
+  text-align: center; padding: 140px 60px;
+  position: relative; overflow: hidden;
+}
+.cta-bg-glow {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 60% 50% at 50% 50%, rgba(201,149,106,0.06) 0%, transparent 70%);
+  animation: glow-pulse 6s ease-in-out infinite;
+}
+@keyframes glow-pulse {
+  0%,100% { opacity: 0.5; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.1); }
+}
+.cta-tagline {
+  font-family: 'Cormorant Garamond', serif; font-style: italic;
+  font-size: clamp(14px, 2vw, 18px); color: var(--or);
+  letter-spacing: 0.1em; margin-bottom: 24px;
+}
+.cta-title {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(28px, 5vw, 56px);
+  font-weight: 400; color: var(--or2);
+  letter-spacing: 0.1em; margin-bottom: 16px; line-height: 1.2;
+}
+.cta-sub { font-size: 12px; color: rgba(245,230,208,0.4); letter-spacing: 0.1em; margin-bottom: 60px; }
+.cta-btn-group { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
+.btn-gold {
+  padding: 18px 52px;
+  background: linear-gradient(135deg, #c9956a, #e8c99a, #c9956a);
+  background-size: 200% 100%;
+  color: #1a0e07; font-size: 10px;
+  letter-spacing: 0.3em; text-transform: uppercase;
+  border: none; font-family: 'Montserrat', sans-serif; font-weight: 400;
+  transition: all 0.5s ease; text-decoration: none; display: inline-block;
+  cursor: pointer;
+}
+.btn-gold:hover { background-position: 100% 0; }
+.btn-outline {
+  padding: 18px 52px;
+  border: 1px solid rgba(201,149,106,0.4);
+  color: var(--or2); font-size: 10px;
+  letter-spacing: 0.3em; text-transform: uppercase;
+  background: transparent; font-family: 'Montserrat', sans-serif;
+  transition: all 0.4s ease; text-decoration: none; display: inline-block;
+  cursor: pointer;
+}
+.btn-outline:hover { border-color: var(--or); color: var(--or3); background: rgba(201,149,106,0.05); }
+
+footer {
+  background: var(--noir); border-top: 1px solid rgba(201,149,106,0.1);
+  padding: 60px; display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 32px;
+}
+.footer-brand {
+  font-family: 'Cinzel', serif;
+  font-size: 11px; letter-spacing: 0.4em; color: var(--or); text-transform: uppercase;
+}
+.footer-copy { font-size: 10px; color: rgba(201,149,106,0.3); letter-spacing: 0.1em; }
+.footer-links { display: flex; gap: 32px; }
+.footer-links a {
+  font-size: 10px; color: rgba(201,149,106,0.4);
+  text-decoration: none; letter-spacing: 0.2em; text-transform: uppercase;
+  transition: color 0.3s;
+}
+.footer-links a:hover { color: var(--or2); }
+
+.reveal {
+  opacity: 0; transform: translateY(40px);
+  transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+@media (max-width: 768px) {
+  nav { padding: 20px 24px; }
+  .nav-links { display: none; }
+  section { padding: 80px 24px; }
+  #about { grid-template-columns: 1fr; gap: 48px; }
+  .services-grid { grid-template-columns: 1fr 1fr; }
+  .testimonials-grid { grid-template-columns: 1fr; }
+  .gallery-item { flex: 0 0 240px; height: 320px; }
+  footer { flex-direction: column; text-align: center; padding: 48px 24px; }
+  #cta-final { padding: 100px 24px; }
+}
+@media (max-width: 480px) {
+  .services-grid { grid-template-columns: 1fr; }
+  .about-stats { grid-template-columns: 1fr 1fr; }
+  body { cursor: auto; }
+  #cursor, #cursor-ring { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<nav id="navbar">
+  <span class="nav-logo">KG Prestige</span>
+  <div class="nav-links">
+    <a href="#about">Maison</a>
+    <a href="#services">Services</a>
+    <a href="#gallery">Galerie</a>
+    <a href="#cta-final">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-lines"></div>
+  <div id="particles-container"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Established · Excellence · Prestige</p>
+    <div class="hero-logo-wrap">
+      <div class="logo-ring"></div>
+      <div class="hero-monogram">KG</div>
+    </div>
+    <p class="hero-brand">KG Prestige</p>
+    <p class="hero-tagline">Where Excellence Meets Prestige</p>
+    <a href="#services" class="hero-cta">
+      <span>Discover Our World</span>
+      <span style="font-size:16px;">→</span>
+    </a>
+  </div>
+  <div class="scroll-indicator">
+    <div class="scroll-line"></div>
+    <span class="scroll-text">Scroll</span>
+  </div>
+</section>
+
+<div class="section-divider"><div class="div-line"></div><div class="div-diamond"></div><div class="div-line"></div></div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-text reveal">
+    <p class="section-label">Notre Maison</p>
+    <h2 class="section-title">L'art de vivre<br><em>sans compromis</em></h2>
+    <p>KG Prestige incarne l'excellence absolue. Née d'une vision singulière, notre maison offre à une clientèle d'exception un accès privilégié aux plus hauts standards de vie.</p>
+    <p>Chaque service est pensé, chaque détail est maîtrisé. Nous ne proposons pas l'ordinaire — nous créons l'extraordinaire.</p>
+  </div>
+  <div class="about-stats reveal">
+    <div class="stat-item"><div class="stat-number">15+</div><div class="stat-label">Années d'excellence</div></div>
+    <div class="stat-item"><div class="stat-number">98%</div><div class="stat-label">Satisfaction client</div></div>
+    <div class="stat-item"><div class="stat-number">40+</div><div class="stat-label">Pays couverts</div></div>
+    <div class="stat-item"><div class="stat-number">500+</div><div class="stat-label">Clients privés</div></div>
+  </div>
+</section>
+
+<div class="section-divider"><div class="div-line"></div><div class="div-diamond"></div><div class="div-line"></div></div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="reveal">
+    <p class="section-label" style="justify-content:center;">Ce que nous offrons</p>
+    <h2 class="section-title">Services <em>d'Exception</em></h2>
+  </div>
+  <div class="services-grid reveal">
+    <div class="service-card">
+      <span class="service-icon">◈</span>
+      <div class="service-name">Private Concierge</div>
+      <div class="service-desc">Un conseiller dédié, disponible 24h/24, pour répondre à chaque désir avec discrétion absolue.</div>
+    </div>
+    <div class="service-card">
+      <span class="service-icon">◉</span>
+      <div class="service-name">Luxury Real Estate</div>
+      <div class="service-desc">Propriétés d'exception dans les destinations les plus prestigieuses du monde.</div>
+    </div>
+    <div class="service-card">
+      <span class="service-icon">◇</span>
+      <div class="service-name">Elite Networking</div>
+      <div class="service-desc">Accès à un cercle privé d'entrepreneurs, décideurs et personnalités d'influence mondiale.</div>
+    </div>
+    <div class="service-card">
+      <span class="service-icon">✦</span>
+      <div class="service-name">Lifestyle Management</div>
+      <div class="service-desc">Organisation de voyages privés, événements exclusifs et expériences sur mesure.</div>
+    </div>
+    <div class="service-card">
+      <span class="service-icon">◆</span>
+      <div class="service-name">Investment Opportunities</div>
+      <div class="service-desc">Accès privilégié à des opportunités d'investissement réservées à une clientèle sélectionnée.</div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"><div class="div-line"></div><div class="div-diamond"></div><div class="div-line"></div></div>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="reveal">
+    <p class="section-label">L'univers KG</p>
+    <h2 class="section-title">Une esthétique<br><em>sans égale</em></h2>
+  </div>
+  <div class="gallery-track reveal" id="galleryTrack">
+    <div class="gallery-item">
+      <div class="gallery-img g1"><span class="g-icon">◈</span></div>
+      <div class="gallery-overlay"><div class="gallery-title">Villa Privée</div><div class="gallery-sub">Côte d'Azur</div></div>
+    </div>
+    <div class="gallery-item">
+      <div class="gallery-img g2"><span class="g-icon">◉</span></div>
+      <div class="gallery-overlay"><div class="gallery-title">Yacht Privé</div><div class="gallery-sub">Monaco</div></div>
+    </div>
+    <div class="gallery-item">
+      <div class="gallery-img g3"><span class="g-icon">✦</span></div>
+      <div class="gallery-overlay"><div class="gallery-title">Gala Exclusif</div><div class="gallery-sub">Paris</div></div>
+    </div>
+    <div class="gallery-item">
+      <div class="gallery-img g4"><span class="g-icon">◆</span></div>
+      <div class="gallery-overlay"><div class="gallery-title">Suite Présidentielle</div><div class="gallery-sub">Dubaï</div></div>
+    </div>
+    <div class="gallery-item">
+      <div class="gallery-img g5"><span class="g-icon">◇</span></div>
+      <div class="gallery-overlay"><div class="gallery-title">Jet Privé</div><div class="gallery-sub">Global</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"><div class="div-line"></div><div class="div-diamond"></div><div class="div-line"></div></div>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="reveal">
+    <p class="section-label" style="justify-content:center;">Ils nous font confiance</p>
+    <h2 class="section-title">Paroles de<br><em>membres</em></h2>
+  </div>
+  <div class="testimonials-grid reveal">
+    <div class="testi-card">
+      <div class="stars">★★★★★</div>
+      <span class="testi-quote">"</span>
+      <p class="testi-text">KG Prestige transcende toutes les attentes. Un niveau de service que je n'avais encore jamais rencontré en 30 ans d'affaires internationales.</p>
+      <div class="testi-author">Alexandre M.</div>
+      <div class="testi-role">CEO · Private Equity, Paris</div>
+    </div>
+    <div class="testi-card">
+      <div class="stars">★★★★★</div>
+      <span class="testi-quote">"</span>
+      <p class="testi-text">Chaque détail est pensé, chaque demande anticipée. C'est l'excellence dans sa forme la plus pure. Rien ne leur est impossible.</p>
+      <div class="testi-author">Sophia Al-R.</div>
+      <div class="testi-role">Entrepreneur · Dubai & Londres</div>
+    </div>
+    <div class="testi-card">
+      <div class="stars">★★★★★</div>
+      <span class="testi-quote">"</span>
+      <p class="testi-text">Une maison d'exception pour des clients d'exception. KG Prestige redéfinit ce que signifie le vrai luxe au 21ème siècle.</p>
+      <div class="testi-author">Jean-Philippe D.</div>
+      <div class="testi-role">Investisseur · Genève</div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"><div class="div-line"></div><div class="div-diamond"></div><div class="div-line"></div></div>
+
+<!-- CTA FINAL -->
+<section id="cta-final">
+  <div class="cta-bg-glow"></div>
+  <div style="position:relative;z-index:1;" class="reveal">
+    <p class="cta-tagline">— Une invitation exclusive —</p>
+    <h2 class="cta-title">Enter The<br>Prestige World</h2>
+    <p class="cta-sub">Réservé à ceux qui exigent l'excellence absolue</p>
+    <div class="cta-btn-group">
+      <a href="#" class="btn-gold">Rejoindre le Cercle</a>
+      <a href="#" class="btn-outline">En savoir plus</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-brand">KG · Prestige</div>
+    <div class="footer-copy" style="margin-top:8px;">© 2026 KG Prestige. All rights reserved.</div>
+  </div>
+  <div class="footer-links">
+    <a href="#">Confidentialité</a>
+    <a href="#">Mentions légales</a>
+    <a href="#">Contact</a>
+  </div>
+</footer>
+
+<script>
+// Custom cursor
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursor-ring');
+let mx = 0, my = 0, rx = 0, ry = 0;
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cursor.style.left = mx - 4 + 'px';
+  cursor.style.top = my - 4 + 'px';
+});
+function animRing() {
+  rx += (mx - rx) * 0.12;
+  ry += (my - ry) * 0.12;
+  ring.style.left = rx + 'px';
+  ring.style.top = ry + 'px';
+  requestAnimationFrame(animRing);
+}
+animRing();
+
+// Nav scroll
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// Particles
+const pc = document.getElementById('particles-container');
+for (let i = 0; i < 18; i++) {
+  const p = document.createElement('div');
+  p.className = 'particle';
+  const s = Math.random() * 2 + 1;
+  p.style.cssText = `width:${s}px;height:${s}px;background:rgba(${Math.random()>0.5?'201,149,106':'232,201,154'},${Math.random()*0.4+0.1});left:${Math.random()*100}%;animation-duration:${Math.random()*15+10}s;animation-delay:${Math.random()*10}s;`;
+  pc.appendChild(p);
+}
+
+// Scroll reveal
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+reveals.forEach(r => observer.observe(r));
+
+// Gallery drag
+const track = document.getElementById('galleryTrack');
+let isDragging = false, startX = 0, scrollLeft = 0;
+track.addEventListener('mousedown', e => { isDragging = true; startX = e.pageX - track.offsetLeft; scrollLeft = track.scrollLeft; track.style.cursor = 'grabbing'; });
+track.addEventListener('mouseleave', () => { isDragging = false; track.style.cursor = 'grab'; });
+track.addEventListener('mouseup', () => { isDragging = false; track.style.cursor = 'grab'; });
+track.addEventListener('mousemove', e => { if (!isDragging) return; e.preventDefault(); const x = e.pageX - track.offsetLeft; track.scrollLeft = scrollLeft - (x - startX) * 1.5; });
+</script>
+</body>
+</html>
